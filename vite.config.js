@@ -9,8 +9,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['vue', 'vue-router', 'pinia'],
-          ui: ['@fortawesome/fontawesome-free']
+          vendor: ['vue', 'vue-router', 'pinia']
         }
       }
     },
