@@ -69,7 +69,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 
 const discordAuthUrl = computed(() => {
-  return `http://localhost:3001/auth/discord`;
+  return `https://veyra-backend.vercel.app/auth/discord`;
 });
 </script>
 
