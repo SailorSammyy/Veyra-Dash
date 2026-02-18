@@ -14,6 +14,7 @@
           <h3 class="font-semibold text-yellow-400 text-sm">Server Membership Required</h3>
           <p class="text-zinc-400 text-xs mt-0.5 leading-relaxed">
             You must join the Discord server to access the source code section.
+            Also you must relogin again!
           </p>
         </div>
       </div>
