@@ -28,7 +28,7 @@ const router = createRouter({
       path: '/code',
       name: 'source',
       component: Repositories,
-      meta: { requiresAuth: true, requiresOwner: true } // Note: requiresOwner logic handled manually below
+      meta: { requiresAuth: true }
     }
   ]
 });
@@ -36,23 +36,19 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   
-  // If we have a token but no user data, fetch it
   if (authStore.token && !authStore.user) {
     await authStore.fetchUser();
   }
 
-  // SPECIFIC CHECK FOR REPOSITORIES (Server Membership)
-  if (to.path === '/repositories') {
+  if (to.path === '/code') {
     if (!authStore.isAuthenticated) {
       next('/login');
     } else if (!authStore.isInServer) {
-      // Redirect to dashboard with error flag
       next('/?error=not_in_server');
     } else {
       next();
     }
   } 
-  // STANDARD CHECKS
   else if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login');
   } else if (to.meta.requiresOwner && !authStore.isOwner) {
