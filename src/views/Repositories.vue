@@ -1,7 +1,6 @@
 <template>
   <div class="space-y-6">
 
-    <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Source Code</h1>
@@ -16,13 +15,11 @@
       </button>
     </div>
 
-    <!-- Loading -->
     <div v-if="loading" class="flex flex-col items-center justify-center py-20 gap-3">
       <div class="w-8 h-8 border-2 border-zinc-700 border-t-white rounded-full animate-spin"></div>
       <p class="text-zinc-500 text-sm">Loading source...</p>
     </div>
 
-    <!-- Empty -->
     <div v-else-if="repos.length === 0" class="flex flex-col items-center justify-center py-20 gap-3 bg-zinc-900/60 rounded-2xl border border-zinc-800">
       <div class="w-14 h-14 rounded-2xl bg-zinc-800 flex items-center justify-center">
         <i class="fa-solid fa-code-branch text-zinc-500 text-xl"></i>
@@ -31,7 +28,6 @@
       <p class="text-zinc-600 text-sm">Add one to get started.</p>
     </div>
 
-    <!-- Desktop Table -->
     <div v-else class="hidden md:block bg-zinc-900/60 rounded-2xl border border-zinc-800 overflow-hidden shadow-xl">
       <table class="w-full text-left">
         <thead>
@@ -49,12 +45,10 @@
             :key="repo.id"
             class="border-b border-zinc-800/70 last:border-0 hover:bg-zinc-800/40 transition-colors duration-100 group"
           >
-            <!-- Index -->
             <td class="px-5 py-4 text-center text-zinc-600 font-mono text-xs">
               {{ String(index + 1).padStart(2, '0') }}
             </td>
 
-            <!-- Title -->
             <td class="px-5 py-4">
               <span class="text-white font-medium text-sm">{{ repo.title || 'Untitled' }}</span>
               <div v-if="repo.allowed_editors?.length" class="flex items-center gap-1 mt-1">
@@ -63,7 +57,6 @@
               </div>
             </td>
 
-            <!-- Resources -->
             <td class="px-5 py-4">
               <div class="flex items-center gap-3">
                 <a
@@ -86,12 +79,10 @@
               </div>
             </td>
 
-            <!-- Description -->
             <td class="px-5 py-4 text-zinc-500 text-sm max-w-xs truncate">
               {{ repo.description || '—' }}
             </td>
 
-            <!-- Actions -->
             <td class="px-5 py-4 text-right">
               <template v-if="canEdit(repo)">
                 <div class="flex items-center justify-end gap-1">
@@ -118,14 +109,12 @@
       </table>
     </div>
 
-    <!-- Mobile Cards -->
     <div v-if="!loading && repos.length > 0" class="md:hidden space-y-3">
       <div
         v-for="(repo, index) in repos"
         :key="repo.id"
         class="bg-zinc-900/70 rounded-2xl border border-zinc-800 p-4 space-y-3"
       >
-        <!-- Card Header -->
         <div class="flex items-start justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
             <span class="text-xs font-mono text-zinc-600 shrink-0">{{ String(index + 1).padStart(2, '0') }}</span>
@@ -156,12 +145,10 @@
           <span v-else class="text-xs text-zinc-600 border border-zinc-800 px-2 py-1 rounded-lg shrink-0">Read Only</span>
         </div>
 
-        <!-- Description -->
         <p v-if="repo.description" class="text-zinc-500 text-xs leading-relaxed line-clamp-2">
           {{ repo.description }}
         </p>
 
-        <!-- Resource Links -->
         <div class="flex items-center gap-2 pt-1">
           <a
             :href="repo.link"
@@ -184,7 +171,6 @@
       </div>
     </div>
 
-    <!-- Modal -->
     <RepoModal
       :show="showModal"
       :repo="currentRepo"

@@ -7,12 +7,10 @@
     >
       <div class="bg-zinc-950 w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl border border-zinc-800 shadow-2xl overflow-hidden">
 
-        <!-- Handle bar (mobile) -->
         <div class="flex justify-center pt-3 pb-1 sm:hidden">
           <div class="w-10 h-1 bg-zinc-700 rounded-full"></div>
         </div>
 
-        <!-- Header -->
         <div class="px-6 py-4 flex justify-between items-center border-b border-zinc-800/80">
           <div>
             <h3 class="text-base font-bold text-white">
@@ -30,10 +28,8 @@
           </button>
         </div>
 
-        <!-- Form -->
         <form @submit.prevent="handleSubmit" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
 
-          <!-- GitHub Link -->
           <div class="space-y-1.5">
             <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">
               Source Link <span class="text-white">*</span>
@@ -50,7 +46,6 @@
             </div>
           </div>
 
-          <!-- YouTube Link -->
           <div class="space-y-1.5">
             <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">
               YouTube Link <span class="text-zinc-600">(optional)</span>
@@ -66,7 +61,6 @@
             </div>
           </div>
 
-          <!-- Title -->
           <div class="space-y-1.5">
             <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">Title</label>
             <input
@@ -77,7 +71,6 @@
             />
           </div>
 
-          <!-- Description -->
           <div class="space-y-1.5">
             <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">Description</label>
             <textarea
@@ -88,7 +81,6 @@
             ></textarea>
           </div>
 
-          <!-- Allowed Editors (Owner only) -->
           <div v-if="isOwner" class="space-y-1.5">
             <label class="block text-xs font-semibold text-indigo-400 uppercase tracking-wider">
               <i class="fa-solid fa-user-shield mr-1"></i> Allowed Editors
@@ -102,7 +94,6 @@
             <p class="text-xs text-zinc-600">Comma-separated Discord User IDs.</p>
           </div>
 
-          <!-- Actions -->
           <div class="flex gap-3 pt-2">
             <button
               type="button"
@@ -144,7 +135,6 @@ const editorsInput = ref('');
 
 const isEditing = computed(() => !!props.repo);
 
-// Sync modal open state with uiStore so FloatingNav hides itself
 watch(() => props.show, (val) => {
   val ? uiStore.openModal() : uiStore.closeModal();
 });

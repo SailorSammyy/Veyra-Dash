@@ -2,21 +2,16 @@
   <!-- Fixed full-screen, breaks out of App.vue's container entirely -->
   <div class="login-root fixed inset-0 z-50 flex items-center justify-center bg-zinc-950 overflow-hidden">
 
-    <!-- Background grid -->
     <div class="grid-bg absolute inset-0 pointer-events-none"></div>
 
-    <!-- Ambient glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-600/5 blur-[140px] pointer-events-none"></div>
 
-    <!-- Card -->
     <div class="login-card relative z-10 w-full px-4 sm:px-0 sm:w-[360px]">
 
-      <!-- Top accent line -->
       <div class="h-px w-full bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent mb-px"></div>
 
       <div class="bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60">
 
-        <!-- Logo mark -->
         <div class="flex flex-col items-center mb-7">
           <div class="w-14 h-14 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center mb-4 shadow-lg">
             <i class="fa-solid fa-robot text-2xl text-indigo-400"></i>
@@ -27,7 +22,6 @@
           </p>
         </div>
 
-        <!-- Discord Button -->
         <a
           :href="discordAuthUrl"
           class="discord-btn relative flex items-center justify-center gap-3 w-full py-3 px-5 rounded-xl font-semibold text-sm text-white overflow-hidden shadow-lg"
@@ -37,7 +31,6 @@
           <span class="relative z-10">Continue with Discord</span>
         </a>
 
-        <!-- Error -->
         <transition name="err-fade">
           <div
             v-if="route.query.error"
@@ -48,7 +41,6 @@
           </div>
         </transition>
 
-        <!-- Footer note -->
         <p class="text-zinc-600 text-xs text-center mt-5 leading-relaxed">
           By continuing, you agree to our terms.<br>
           Only server members may access the dashboard.
@@ -56,7 +48,6 @@
 
       </div>
 
-      <!-- Bottom accent line -->
       <div class="h-px w-full bg-gradient-to-r from-transparent via-zinc-700/40 to-transparent mt-px"></div>
     </div>
   </div>

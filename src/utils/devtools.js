@@ -1,9 +1,6 @@
-// Anti-inspection utilities (limited effectiveness)
 export const disableDevTools = () => {
-  // Disable right-click
   document.addEventListener('contextmenu', (e) => e.preventDefault());
   
-  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
   document.addEventListener('keydown', (e) => {
     if (
       e.key === 'F12' ||
@@ -14,7 +11,6 @@ export const disableDevTools = () => {
     }
   });
   
-  // Detect devtools (can be bypassed)
   let devtools = {
     open: false,
     orientation: null

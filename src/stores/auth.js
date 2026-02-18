@@ -6,12 +6,12 @@ export const useAuthStore = defineStore('auth', {
     user: null,
     token: localStorage.getItem('veyra_token') || null,
     loading: false,
-    isInServer: false, // NEW STATE
+    isInServer: false,
   }),
   getters: {
     isAuthenticated: (state) => !!state.token,
     isOwner: (state) => state.user && state.user.isOwner,
-    canViewRepos: (state) => state.isInServer, // NEW GETTER
+    canViewRepos: (state) => state.isInServer,
   },
   actions: {
     async fetchUser() {
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await api.get('/api/user');
         this.user = response.data;
-        this.isInServer = response.data.isInServer; // SYNC STATE
+        this.isInServer = response.data.isInServer;
       } catch (error) {
         console.error('Failed to fetch user', error);
         this.logout();

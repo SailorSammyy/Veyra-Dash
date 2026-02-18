@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="flex flex-col min-h-screen bg-zinc-950">
     
-    <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
@@ -10,7 +9,6 @@
       </router-view>
     </main>
 
-    <!-- Floating Bottom Navigation -->
     <FloatingNav />
   </div>
 </template>

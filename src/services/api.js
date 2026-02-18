@@ -7,7 +7,6 @@ const api = axios.create({
   },
 });
 
-// Request Interceptor: Attach Token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('veyra_token');
@@ -19,12 +18,10 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response Interceptor: Handle Errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Token expired or invalid
       localStorage.removeItem('veyra_token');
       window.location.href = '/login';
     }

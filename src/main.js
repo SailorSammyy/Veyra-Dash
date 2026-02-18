@@ -5,7 +5,6 @@ import router from './router';
 import './style.css';
 import { disableDevTools, clearConsoleOnOpen } from './utils/devtools';
 
-// Apply anti-inspection measures (development only)
 if (import.meta.env.PROD) {
   disableDevTools();
   clearConsoleOnOpen();

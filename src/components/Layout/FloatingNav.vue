@@ -5,13 +5,11 @@
       class="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2"
     >
 
-      <!-- User Dropdown -->
       <transition name="pop-up">
         <div
           v-if="isUserMenuOpen"
           class="w-64 bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
         >
-          <!-- Profile Header -->
           <div class="p-3 flex items-center gap-3 border-b border-zinc-800/80 bg-zinc-900/60">
             <div class="relative shrink-0">
               <img
@@ -33,7 +31,6 @@
             </div>
           </div>
 
-          <!-- Menu Items -->
           <div class="p-1.5">
             <button
               @click="logout"
@@ -46,13 +43,11 @@
         </div>
       </transition>
 
-      <!-- Floating Bar -->
       <div
         ref="navBar"
         class="bg-zinc-950/95 backdrop-blur-xl border border-zinc-800 rounded-2xl p-1.5 flex items-center gap-0.5 shadow-2xl shadow-black/60"
       >
 
-        <!-- Home -->
         <router-link to="/" custom v-slot="{ navigate, href, isExactActive }">
           <a
             :href="href"
@@ -69,7 +64,6 @@
           </a>
         </router-link>
 
-        <!-- Repos -->
         <router-link
           v-if="authStore.isInServer"
           to="/code"
@@ -91,10 +85,8 @@
           </a>
         </router-link>
 
-        <!-- Divider -->
         <div class="w-px h-5 bg-zinc-800 mx-1 shrink-0"></div>
 
-        <!-- User Profile Button -->
         <button
           @click.stop="toggleUserMenu"
           :class="[
@@ -102,7 +94,6 @@
             isUserMenuOpen ? 'bg-zinc-800' : 'hover:bg-zinc-800'
           ]"
         >
-          <!-- Avatar -->
           <div class="relative w-7 h-7 shrink-0">
             <img
               v-if="authStore.user?.avatar"
@@ -115,10 +106,8 @@
             >
               <i class="fa-solid fa-user text-zinc-400 text-xs"></i>
             </div>
-            <!-- Online dot -->
             <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-green-500 border-[1.5px] border-zinc-950 rounded-full"></span>
           </div>
-          <!-- Username (sm and up) -->
           <span class="hidden sm:block text-sm font-medium text-zinc-300 max-w-[80px] truncate leading-none">
             {{ authStore.user?.username || 'Profile' }}
           </span>
