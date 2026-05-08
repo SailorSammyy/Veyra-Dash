@@ -186,7 +186,7 @@ const sourceStatCards = computed(() => {
 
 onMounted(async () => {
   try {
-    const res = await axios.get('https://m3u8proxy.kimora.workers.dev/?url=https://veyra.wispbyte.cc/stats');
+    const res = await axios.get('https://veyra.wispbyte.cc/stats');
     stats.value = res.data;
   } catch {
     stats.value = null;
