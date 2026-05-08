@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import FloatingNav from './components/Layout/FloatingNav.vue';
+import FloatingNav from './components/Navbar.vue';
 </script>
 
 <style>

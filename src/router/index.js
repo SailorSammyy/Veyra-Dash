@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
-import Repositories from '../views/Repositories.vue';
+import Source from '../views/Source.vue';
 import AuthCallback from '../views/AuthCallback.vue';
 
 const router = createRouter({
@@ -25,9 +25,9 @@ const router = createRouter({
       component: AuthCallback
     },
     {
-      path: '/code',
+      path: '/source',
       name: 'source',
-      component: Repositories,
+      component: Source,
       meta: { requiresAuth: true }
     }
   ]
@@ -35,12 +35,12 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-  
+
   if (authStore.token && !authStore.user) {
     await authStore.fetchUser();
   }
 
-  if (to.path === '/code') {
+  if (to.path === '/source') {
     if (!authStore.isAuthenticated) {
       next('/login');
     } else if (!authStore.isInServer) {
@@ -48,11 +48,10 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next();
     }
-  } 
-  else if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+  } else if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login');
   } else if (to.meta.requiresOwner && !authStore.isOwner) {
-    next('/'); 
+    next('/');
   } else {
     next();
   }

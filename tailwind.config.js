@@ -5,13 +5,7 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        discord: '#5865F2',
-        dark: '#0f172a',
-        card: '#1e293b',
-      }
-    },
+    extend: {},
   },
   plugins: [],
 }

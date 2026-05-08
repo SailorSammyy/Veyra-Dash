@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     isAuthenticated: (state) => !!state.token,
     isOwner: (state) => state.user && state.user.isOwner,
-    canViewRepos: (state) => state.isInServer,
+    canViewSource: (state) => state.isInServer,
   },
   actions: {
     async fetchUser() {

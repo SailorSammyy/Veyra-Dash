@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-dark">
+  <div class="fixed inset-0 flex items-center justify-center bg-black">
     <div class="text-center">
-      <div class="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-      <p class="text-white font-medium">Finalizing login...</p>
+      <div class="w-12 h-12 border-2 border-zinc-700 border-t-white rounded-full animate-spin mx-auto mb-5"></div>
+      <p class="text-white text-sm font-medium">Finalizing login...</p>
     </div>
   </div>
 </template>
