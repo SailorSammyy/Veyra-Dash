@@ -2,109 +2,110 @@
   <transition name="modal-fade">
     <div
       v-if="show"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm"
+      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-md"
       @click.self="close"
     >
-      <div class="bg-zinc-950 w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl border border-zinc-800 shadow-2xl overflow-hidden">
+      <div
+        class="bg-[#0a0a0a] w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl border border-white/[0.08] shadow-2xl shadow-black overflow-hidden"
+      >
         <div class="flex justify-center pt-3 pb-1 sm:hidden">
-          <div class="w-10 h-1 bg-zinc-700 rounded-full"></div>
+          <div class="w-8 h-[3px] bg-white/10 rounded-full"></div>
         </div>
-        <div class="px-6 py-4 flex justify-between items-center border-b border-zinc-800/80">
+        <div class="px-6 pt-5 pb-4 flex items-start justify-between gap-4 border-b border-white/[0.06]">
           <div>
-            <h3 class="text-base font-bold text-white">
-              {{ isEditing ? 'Edit Source' : 'Add Source' }}
+            <h3 class="text-[15px] font-semibold text-white tracking-tight">
+              {{ isEditing ? 'Edit Source' : 'New Source' }}
             </h3>
-            <p class="text-xs text-zinc-500 mt-0.5">
+            <p class="text-xs text-white/30 mt-0.5">
               {{ isEditing ? 'Update the details below.' : 'Fill in the details to add a new source.' }}
             </p>
           </div>
           <button
             @click="close"
-            class="w-8 h-8 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center transition-all duration-150"
+            class="w-7 h-7 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-white/40 hover:text-white flex items-center justify-center transition-all duration-150 shrink-0 mt-0.5"
           >
-            <i class="fa-solid fa-xmark text-sm"></i>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+            </svg>
           </button>
         </div>
-
         <form @submit.prevent="handleSubmit" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
-
           <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-              Source Link <span class="text-white">*</span>
+            <label class="block text-[11px] font-medium text-white/35 uppercase tracking-[0.12em]">
+              Source Link <span class="text-white/60 normal-case tracking-normal">*</span>
             </label>
             <div class="relative">
-              <i class="fa-solid fa-link absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm"></i>
+              <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/>
+              </svg>
               <input
                 v-model="form.link"
                 type="url"
                 required
-                class="w-full bg-zinc-900 border border-zinc-800 focus:border-zinc-600 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none transition-colors duration-150"
-                placeholder="https://example.com"
+                class="w-full bg-white/[0.04] border border-white/[0.08] focus:border-white/25 focus:bg-white/[0.06] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none transition-all duration-150"
+                placeholder="https://github.com/..."
               />
             </div>
           </div>
-
           <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-              YouTube Link <span class="text-zinc-600">(optional)</span>
+            <label class="block text-[11px] font-medium text-white/35 uppercase tracking-[0.12em]">
+              YouTube Link <span class="text-white/20 normal-case tracking-normal font-normal">optional</span>
             </label>
             <div class="relative">
-              <i class="fa-brands fa-youtube absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm"></i>
+              <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
               <input
                 v-model="form.youtube_link"
                 type="url"
-                class="w-full bg-zinc-900 border border-zinc-800 focus:border-zinc-600 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none transition-colors duration-150"
+                class="w-full bg-white/[0.04] border border-white/[0.08] focus:border-white/25 focus:bg-white/[0.06] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none transition-all duration-150"
                 placeholder="https://youtube.com/watch?v=..."
               />
             </div>
           </div>
-
           <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">Title</label>
+            <label class="block text-[11px] font-medium text-white/35 uppercase tracking-[0.12em]">Title</label>
             <input
               v-model="form.title"
               type="text"
-              class="w-full bg-zinc-900 border border-zinc-800 focus:border-zinc-600 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none transition-colors duration-150"
+              class="w-full bg-white/[0.04] border border-white/[0.08] focus:border-white/25 focus:bg-white/[0.06] rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none transition-all duration-150"
               placeholder="Project name..."
             />
           </div>
-
           <div class="space-y-1.5">
-            <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">Description</label>
+            <label class="block text-[11px] font-medium text-white/35 uppercase tracking-[0.12em]">Description</label>
             <textarea
               v-model="form.description"
               rows="3"
-              class="w-full bg-zinc-900 border border-zinc-800 focus:border-zinc-600 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none transition-colors duration-150 resize-none"
+              class="w-full bg-white/[0.04] border border-white/[0.08] focus:border-white/25 focus:bg-white/[0.06] rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none transition-all duration-150 resize-none leading-relaxed"
               placeholder="Short description..."
             ></textarea>
           </div>
-
           <div v-if="isOwner" class="space-y-1.5">
-            <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-              <i class="fa-solid fa-user-shield mr-1"></i> Allowed Editors
+            <label class="block text-[11px] font-medium text-white/35 uppercase tracking-[0.12em]">
+              Allowed Editors
             </label>
             <input
               v-model="editorsInput"
               type="text"
-              class="w-full bg-zinc-900 border border-zinc-800 focus:border-zinc-600 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none font-mono transition-colors duration-150"
+              class="w-full bg-white/[0.04] border border-white/[0.08] focus:border-white/25 focus:bg-white/[0.06] rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none transition-all duration-150 font-mono"
               placeholder="Discord User IDs, comma-separated..."
             />
-            <p class="text-xs text-zinc-600">Comma-separated Discord User IDs.</p>
+            <p class="text-[11px] text-white/20">Comma-separated Discord User IDs.</p>
           </div>
-
-          <div class="flex gap-3 pt-2">
+          <div class="flex gap-2.5 pt-1">
             <button
               type="button"
               @click="close"
-              class="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-400 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 transition-all duration-150"
+              class="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-white/40 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.07] hover:text-white/70 transition-all duration-150"
             >
               Cancel
             </button>
             <button
               type="submit"
-              class="flex-1 px-4 py-2.5 rounded-xl text-sm font-bold text-black bg-white hover:bg-zinc-200 active:scale-95 transition-all duration-150 shadow-lg"
+              class="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-black bg-white hover:bg-white/90 active:scale-[0.98] transition-all duration-150"
             >
-              {{ isEditing ? 'Update' : 'Add Source' }}
+              {{ isEditing ? 'Save Changes' : 'Add Source' }}
             </button>
           </div>
 
@@ -177,6 +178,6 @@ const close = () => emit('close');
 }
 .modal-fade-enter-from > div,
 .modal-fade-leave-to > div {
-  transform: translateY(40px) scale(0.97);
+  transform: translateY(32px) scale(0.97);
 }
 </style>
