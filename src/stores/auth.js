@@ -4,40 +4,40 @@ import api from '../services/api';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
-    token: localStorage.getItem('veyra_token') || null,
     loading: false,
     isInServer: false,
+    initialized: false,
   }),
   getters: {
-    isAuthenticated: (state) => !!state.token,
-    isOwner: (state) => state.user && state.user.isOwner,
+    isAuthenticated: (state) => !!state.user,
+    isOwner: (state) => state.user?.isOwner ?? false,
     canViewSource: (state) => state.isInServer,
   },
   actions: {
     async fetchUser() {
-      if (!this.token) return;
       this.loading = true;
       try {
         const response = await api.get('/api/user');
         this.user = response.data;
         this.isInServer = response.data.isInServer;
-      } catch (error) {
-        console.error('Failed to fetch user', error);
-        this.logout();
+      } catch {
+        this.user = null;
+        this.isInServer = false;
       } finally {
         this.loading = false;
+        this.initialized = true;
       }
     },
-    setToken(token) {
-      this.token = token;
-      localStorage.setItem('veyra_token', token);
+    async logout() {
+      try {
+        await api.post('/auth/logout');
+      } catch {
+      } finally {
+        this.user = null;
+        this.isInServer = false;
+        this.initialized = true;
+        window.location.href = '/login';
+      }
     },
-    logout() {
-      this.user = null;
-      this.token = null;
-      this.isInServer = false;
-      localStorage.removeItem('veyra_token');
-      window.location.href = '/login';
-    }
   },
 });

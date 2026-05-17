@@ -9,22 +9,25 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
-const route = useRoute();
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
 
-onMounted(() => {
-  const token = route.query.token;
-  if (token) {
-    authStore.setToken(token);
-    authStore.fetchUser().then(() => {
-      router.push('/');
-    });
+onMounted(async () => {
+  if (route.query.error) {
+    router.push('/login?error=auth_failed');
+    return;
+  }
+
+  await authStore.fetchUser();
+
+  if (authStore.isAuthenticated) {
+    router.push('/');
   } else {
-    router.push('/login?error=missing_token');
+    router.push('/login?error=auth_failed');
   }
 });
 </script>
