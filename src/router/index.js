@@ -12,53 +12,49 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       component: Dashboard,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
       name: 'login',
-      component: Login,
+      component: Login
     },
     {
       path: '/auth-callback',
       name: 'auth-callback',
-      component: AuthCallback,
+      component: AuthCallback
     },
     {
       path: '/source',
       name: 'source',
       component: Source,
-      meta: { requiresAuth: true },
-    },
-  ],
+      meta: { requiresAuth: true }
+    }
+  ]
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (to.name === 'login' || to.name === 'auth-callback') {
-    return next();
-  }
-
   const authStore = useAuthStore();
 
-  if (!authStore.initialized) {
+  if (authStore.token && !authStore.user) {
     await authStore.fetchUser();
   }
 
   if (to.path === '/source') {
-    if (!authStore.isAuthenticated) return next('/login');
-    if (!authStore.isInServer) return next('/?error=not_in_server');
-    return next();
+    if (!authStore.isAuthenticated) {
+      next('/login');
+    } else if (!authStore.isInServer) {
+      next('/?error=not_in_server');
+    } else {
+      next();
+    }
+  } else if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next('/login');
+  } else if (to.meta.requiresOwner && !authStore.isOwner) {
+    next('/');
+  } else {
+    next();
   }
-
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    return next('/login');
-  }
-
-  if (to.meta.requiresOwner && !authStore.isOwner) {
-    return next('/');
-  }
-
-  next();
 });
 
 export default router;
