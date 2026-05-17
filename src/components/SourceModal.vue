@@ -93,6 +93,55 @@
             />
             <p class="text-[11px] text-white/20">Comma-separated Discord User IDs.</p>
           </div>
+
+          <div v-if="isOwner" class="pt-1">
+            <button
+              type="button"
+              @click="form.is_dead = !form.is_dead"
+              class="dead-toggle w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-all duration-200"
+              :class="form.is_dead
+                ? 'border-red-400/20 bg-red-400/[0.05]'
+                : 'border-white/[0.07] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]'"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-200"
+                  :class="form.is_dead ? 'bg-red-400/10' : 'bg-white/[0.04]'"
+                >
+                  <svg
+                    class="w-3.5 h-3.5 transition-colors duration-200"
+                    :class="form.is_dead ? 'text-red-400/70' : 'text-white/20'"
+                    fill="currentColor" viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zM9 17v1h2v-1H9zm4 0v1h2v-1h-2zm-2-2h2v1.5h-2V15zm-1-4c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+                  </svg>
+                </div>
+                <div class="text-left">
+                  <p
+                    class="text-[13px] font-medium transition-colors duration-200"
+                    :class="form.is_dead ? 'text-red-400/70' : 'text-white/40'"
+                  >
+                    Mark as Lost
+                  </p>
+                  <p class="text-[11px] text-white/20 mt-0.5">
+                    {{ form.is_dead ? 'Code no longer available — shown in dead sources section.' : 'Source code is no longer accessible.' }}
+                  </p>
+                </div>
+              </div>
+              <div
+                class="relative w-9 h-5 rounded-full transition-colors duration-200 shrink-0"
+                :class="form.is_dead ? 'bg-red-400/30' : 'bg-white/[0.08]'"
+              >
+                <div
+                  class="absolute top-0.5 w-4 h-4 rounded-full transition-all duration-200 shadow-sm"
+                  :class="form.is_dead
+                    ? 'left-[18px] bg-red-400/80'
+                    : 'left-0.5 bg-white/30'"
+                ></div>
+              </div>
+            </button>
+          </div>
+
           <div class="flex gap-2.5 pt-1">
             <button
               type="button"
@@ -103,12 +152,14 @@
             </button>
             <button
               type="submit"
-              class="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-black bg-white hover:bg-white/90 active:scale-[0.98] transition-all duration-150"
+              class="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
+              :class="form.is_dead
+                ? 'text-red-400/80 bg-red-400/[0.08] border border-red-400/20 hover:bg-red-400/[0.12]'
+                : 'text-black bg-white hover:bg-white/90'"
             >
               {{ isEditing ? 'Save Changes' : 'Add Source' }}
             </button>
           </div>
-
         </form>
       </div>
     </div>
@@ -128,7 +179,8 @@ const form = ref({
   youtube_link: '',
   title: '',
   description: '',
-  allowed_editors: []
+  allowed_editors: [],
+  is_dead: false,
 });
 const editorsInput = ref('');
 
@@ -140,10 +192,10 @@ watch(() => props.show, (val) => {
 
 watch(() => props.source, (newSource) => {
   if (newSource) {
-    form.value = { ...newSource };
+    form.value = { ...newSource, is_dead: !!newSource.is_dead };
     editorsInput.value = (newSource.allowed_editors || []).join(', ');
   } else {
-    form.value = { link: '', youtube_link: '', title: '', description: '', allowed_editors: [] };
+    form.value = { link: '', youtube_link: '', title: '', description: '', allowed_editors: [], is_dead: false };
     editorsInput.value = '';
   }
 }, { immediate: true });
