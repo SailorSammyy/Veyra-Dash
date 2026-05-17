@@ -34,23 +34,19 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  if (to.name === 'login' || to.name === 'auth-callback') {
+    return next();
+  }
+
   const authStore = useAuthStore();
 
   if (!authStore.initialized) {
     await authStore.fetchUser();
   }
 
-  if (to.name === 'auth-callback' || to.name === 'login') {
-    return next();
-  }
-
   if (to.path === '/source') {
-    if (!authStore.isAuthenticated) {
-      return next('/login');
-    }
-    if (!authStore.isInServer) {
-      return next('/?error=not_in_server');
-    }
+    if (!authStore.isAuthenticated) return next('/login');
+    if (!authStore.isInServer) return next('/?error=not_in_server');
     return next();
   }
 
