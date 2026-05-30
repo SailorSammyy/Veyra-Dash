@@ -2,7 +2,7 @@
   <transition name="modal-fade">
     <div
       v-if="show"
-      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-md"
+      class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-md overflow-y-auto"
       @click.self="close"
     >
       <div
@@ -231,5 +231,39 @@ const close = () => emit('close');
 .modal-fade-enter-from > div,
 .modal-fade-leave-to > div {
   transform: translateY(32px) scale(0.97);
+}
+.max-h-\[75vh\].overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+.max-h-\[75vh\].overflow-y-auto::-webkit-scrollbar {
+  width: 5px;
+}
+.max-h-\[75vh\].overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+.max-h-\[75vh\].overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+.max-h-\[75vh\].overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.fixed.inset-0.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+.fixed.inset-0.overflow-y-auto::-webkit-scrollbar {
+  width: 5px;
+}
+.fixed.inset-0.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+.fixed.inset-0.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+.fixed.inset-0.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 </style>
